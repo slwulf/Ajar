@@ -73,4 +73,19 @@ describe('Ajay', function() {
     });
   });
 
+  describe('.send()', function() {
+    var test;
+
+    before(function() {
+      test = Ajay(baseURL + '/users');
+    });
+
+    it('is exposed by all http methods', function() {
+      expect(test.get()).to.have.ownProperty('send');
+      expect(test.post()).to.have.ownProperty('send');
+      expect(test.put()).to.have.ownProperty('send');
+      expect(test.del()).to.have.ownProperty('send');
+    });
+  });
+
 });
