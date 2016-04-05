@@ -5,7 +5,7 @@ var mocha = require('gulp-mocha');
 var run = require('run-sequence');
 var argv = require('yargs').argv;
 
-var srcFile = 'src/xhr-wrapper.js';
+var srcFile = 'src/ajay.js';
 
 // output src to dist
 gulp.task('js', function() {

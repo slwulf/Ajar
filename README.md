@@ -1,5 +1,5 @@
-# Ajay
-## Asynchronous JavaScript (and you!)
+## Ajay
+#### Asynchronous JavaScript (and you!)
 
 This library is intended to be a tiny wrapper around `XMLHttpRequest`. Its goal is to simplify front-end interaction with RESTful APIs by exposing a composable interface for endpoints and the various HTTP request types.
 
