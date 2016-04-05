@@ -1,7 +1,7 @@
 # Ajay
 ## Asynchronous JavaScript (and you!)
 
-This library is inteded to be a tiny wrapper around `XMLHttpRequest`. Its goal is to simplify front-end interaction with RESTful APIs by exposing a composable interface for endpoints and the various HTTP request types.
+This library is intended to be a tiny wrapper around `XMLHttpRequest`. Its goal is to simplify front-end interaction with RESTful APIs by exposing a composable interface for endpoints and the various HTTP request types.
 
 ### Usage
 
@@ -12,21 +12,31 @@ var posts = Ajay('/posts');
 var firstPost = Ajay('/posts/1');
 
 // GET
-posts.get().send(console.log);
-posts.get({ userId: 1 }).send(console.log);
+posts
+  .get()
+  .send(console.log);
+posts
+  .get({ userId: 1 })
+  .send(console.log);
 
 // POST
-posts.post({
-  title: 'Hello World',
-  body: 'This is my first post!',
-  userId: 1
-}).send();
+posts
+  .post({
+    title: 'Hello World',
+    body: 'This is my first post!',
+    userId: 1
+  })
+  .send();
 
 // PUT
-firstPost.put({
-  title: 'Goodbye World'
-}).send();
+firstPost
+  .put({
+    title: 'Goodbye World'
+  })
+  .send();
 
 // DELETE
-firstPost.del().send();
+firstPost
+  .del()
+  .send();
 ```
