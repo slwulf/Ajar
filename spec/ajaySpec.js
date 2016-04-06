@@ -1,7 +1,7 @@
 /**
  * Ajay Spec
  *
- * Many of the following tests rely on data provided by the
+ * Some of the following tests rely on data provided by the
  * JSONPlaceholder API at http://jsonplaceholder.typicode.com/
  * in order to determine whether the HTTP request was successful.
  * This will be noted in any tests where assertions depend on

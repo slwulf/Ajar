@@ -32,9 +32,7 @@ posts
 
 // PUT
 firstPost
-  .put({
-    title: 'Goodbye World'
-  })
+  .put({ title: 'Goodbye World' })
   .send();
 
 // DELETE
