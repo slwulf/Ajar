@@ -2,7 +2,7 @@
   "name": "xhr-wrapper",
   "version": "1.0.0",
   "description": "A simple, composable wrapper for XMLHttpRequest API.",
-  "main": "index.js",
+  "main": "src/ajay.js",
   "scripts": {
     "test": "gulp js; gulp test --reporter spec"
   },
