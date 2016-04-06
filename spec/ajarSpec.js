@@ -33,8 +33,12 @@ describe('Ajar()', function() {
   });
 
   it('can add to the URL of previously created Ajar instances', function() {
-    var fn = function() { return posts(1) };
-    expect(fn).to.not.throw();
+    posts(1).get().send(function(post) {
+      /**
+       * The ID of /posts/1 should be 1
+       */
+      expect(post.id).to.equal(1);
+    });
   });
 
   describe('.get()', function() {
