@@ -7,7 +7,7 @@ The Ajar API was heavily inspired by the API of [Fetchival](https://github.com/t
 
 ### Usage
 
-Ajar is designed for creating composable AJAX requests around RESTful APIs. The library function `Ajar` accepts a URL and returns a function with HTTP request methods `.get()`, `.post()`, `.put()`, and `.del()`.
+Ajar is designed for creating composable HTTP requests to RESTful APIs. The library function `Ajar` accepts a URL and returns a function with HTTP request methods `.get()`, `.post()`, `.put()`, and `.del()`.
 
 These methods return another method, `.send()`, which executes the request. The send method also accepts a callback function to be run on success. That callback receives any data returned from the server as its sole argument.
 
