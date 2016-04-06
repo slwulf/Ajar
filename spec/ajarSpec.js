@@ -1,5 +1,5 @@
 /**
- * Ajay Spec
+ * Ajar Spec
  *
  * Some of the following tests rely on data provided by the
  * JSONPlaceholder API at http://jsonplaceholder.typicode.com/
@@ -13,25 +13,25 @@ var fs = require('fs');
 var path = require('path');
 
 // set up DOM dependencies
-var fileName = '../dist/ajay.js';
+var fileName = '../dist/Ajar.js';
 var distFile = fs.readFileSync(path.join(__dirname, fileName), 'utf-8');
 var jsdom = require('mocha-jsdom')({ src: distFile });
 
-describe('Ajay', function() {
+describe('Ajar()', function() {
   var baseURL = 'http://jsonplaceholder.typicode.com';
-  var Ajay;
+  var Ajar;
 
   before(function() {
-    Ajay = window.Ajay;
+    Ajar = window.Ajar;
   });
 
   it('throws an error when no URL is provided', function() {
-    var fn = function() { Ajay(); }
+    var fn = function() { Ajar(); }
     expect(fn).to.throw();
   });
 
   it('returns an object with XHR methods', function() {
-    var actual = Ajay('/test');
+    var actual = Ajar('/test');
     expect(actual).to.have.ownProperty('get');
     expect(actual).to.have.ownProperty('post');
     expect(actual).to.have.ownProperty('put');
@@ -42,10 +42,10 @@ describe('Ajay', function() {
     var users;
 
     before(function() {
-      users = Ajay(baseURL + '/users');
+      users = Ajar(baseURL + '/users');
     });
 
-    it('makes a GET request to the URL provided to Ajay()', function() {
+    it('makes a GET request to the URL provided to Ajar()', function() {
       users.get().send(function(data) {
         /**
          * According to the JSONPlaceholder
@@ -53,15 +53,13 @@ describe('Ajay', function() {
          */
         expect(data.length).to.equal(10);
       });
-    });
 
-    it('accepts a params object', function() {
-      /**
-       * According to the JSONPlaceholder
-       * API, the user with ID of 2 has the
-       * name "Ervin Howell"
-       */
       users.get({ id: 2 }).send(function(user) {
+        /**
+         * According to the JSONPlaceholder
+         * API, the user with ID of 2 has the
+         * name "Ervin Howell"
+         */
         expect(user.name).to.equal('Ervin Howell');
       });
     });
@@ -71,43 +69,55 @@ describe('Ajay', function() {
     var posts;
 
     before(function() {
-      posts = Ajay(baseURL + '/posts');
+      posts = Ajar(baseURL + '/posts');
     });
 
-    it('makes a POST request to the URL provided to Ajay()', function() {
+    it('makes a POST request to the URL provided to Ajar()', function() {
       var request = posts.post({
-        title: 'AJAY TEST',
+        title: 'Ajar TEST',
         body: 'lorem ipsum',
         userId: 1
       });
 
       request.send(function(newPost) {
         expect(newPost).to.have.ownProperty('title');
-        expect(newPost.title).to.equal('AJAY TEST');
+        expect(newPost.title).to.equal('Ajar TEST');
       });
     });
   });
 
   describe('.put()', function() {
-    it('makes a PUT request to the URL provided to Ajay()');
+    it('makes a PUT request to the URL provided to Ajar()', function() {
+      //
+    });
   });
 
   describe('.del()', function() {
-    it('makes a DELETE request to the URL provided to Ajay()');
+    it('makes a DELETE request to the URL provided to Ajar()', function() {
+      //
+    });
   });
 
   describe('.send()', function() {
-    var test;
+    var users;
 
     before(function() {
-      test = Ajay(baseURL + '/users');
+      users = Ajar(baseURL + '/users');
     });
 
     it('is exposed by all http methods', function() {
-      expect(test.get()).to.have.ownProperty('send');
-      expect(test.post()).to.have.ownProperty('send');
-      expect(test.put()).to.have.ownProperty('send');
-      expect(test.del()).to.have.ownProperty('send');
+      expect(users.get()).to.have.ownProperty('send');
+      expect(users.post()).to.have.ownProperty('send');
+      expect(users.put()).to.have.ownProperty('send');
+      expect(users.del()).to.have.ownProperty('send');
+    });
+
+    it('accepts a callback function', function() {
+      var actual = false;
+      users.get().send(function(data) {
+        if (data) actual = true;
+        expect(actual).to.be.true;
+      });
     });
   });
 
