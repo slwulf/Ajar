@@ -1,5 +1,13 @@
 /**
  * Ajay Spec
+ *
+ * Many of the following tests rely on data
+ * provided by the JSONPlaceholder API at
+ * http://jsonplaceholder.typicode.com/
+ * in order to determine whether the HTTP
+ * request was successful. This will be noted
+ * in any tests where assertions depend on
+ * a successful return of data.
  */
 
 var expect = require('chai').expect;
@@ -41,11 +49,20 @@ describe('Ajay', function() {
 
     it('makes a GET request to the URL provided to Ajay()', function() {
       users.get().send(function(data) {
+        /**
+         * According to the JSONPlaceholder
+         * API page, there are 10 users.
+         */
         expect(data.length).to.equal(10);
       });
     });
 
     it('accepts a params object', function() {
+      /**
+       * According to the JSONPlaceholder
+       * API, the user with ID of 2 has the
+       * name "Ervin Howell"
+       */
       users.get({ id: 2 }).send(function(user) {
         expect(user.name).to.equal('Ervin Howell');
       });
@@ -72,6 +89,10 @@ describe('Ajay', function() {
       });
     });
   });
+
+  describe('.put()');
+
+  describe('.del()');
 
   describe('.send()', function() {
     var test;
