@@ -2,9 +2,9 @@
   "name": "Ajar",
   "version": "1.0.0",
   "description": "A simple, composable wrapper for XMLHttpRequest API.",
-  "main": "src/ajar.js",
+  "main": "index.js",
   "scripts": {
-    "test": "gulp js; gulp test --reporter spec"
+    "test": "gulp build --reporter spec"
   },
   "keywords": [
     "XHR",

@@ -5,11 +5,12 @@ var mocha = require('gulp-mocha');
 var run = require('run-sequence');
 var argv = require('yargs').argv;
 
-var srcFile = 'src/ajar.js';
+var srcFile = 'index.js';
 
 // output src to dist
 gulp.task('js', function() {
   return gulp.src(srcFile)
+    .pipe(rename({ basename: 'ajar' }))
     .pipe(gulp.dest('dist/'))
     .pipe(uglify())
     .pipe(rename({ extname: '.min.js' }))
