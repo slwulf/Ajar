@@ -19,7 +19,7 @@ gulp.task('js', function() {
 // test stuff
 gulp.task('test', function() {
   return gulp.src('spec/*.js')
-    .pipe(mocha({ reporter: argv.reporter }))
+    .pipe(mocha({ reporter: argv.reporter || 'nyan' }))
 });
 
 // compile and run tests
