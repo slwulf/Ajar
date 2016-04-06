@@ -7,7 +7,7 @@ Ajay ignores the "XML" in "XMLHttpRequest" since most RESTful APIs have a JSON i
 
 ### Usage
 
-Ajay is designed for sending multiple different requests to the same endpoint. The main function is called with an API URL as its sole argument. This returns the methods `.get()`, `.post()`, `.put()`, and `.del()`, all of which can accept a params argument. Those methods in turn expose a `.send()` method, which expects a callback function to be executed on successful completion of the request.
+Ajay is designed for sending multiple different requests to the same endpoint. The main function is called with an API URL as its sole argument. This returns the methods `.get()`, `.post()`, `.put()`, and `.del()`, all of which can accept a params argument. Those methods in turn expose a `.send()` method, which accepts a callback function to be executed on successful completion of the request.
 
 ```javascript
 var posts = Ajay('/posts');
