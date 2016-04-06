@@ -1,42 +1,27 @@
 ## Ajar
 #### Asynchronous JavaScript and REST
 
-This library is intended to be a tiny wrapper around `XMLHttpRequest`. Its goal is to simplify front-end interaction with RESTful APIs by exposing a composable interface for endpoints and the various HTTP request types.
+Ajar is a tiny wrapper around `XMLHttpRequest` that attempts to simplify front-end communication with RESTful APIs. Ajar ignores the "XML" in "XMLHttpRequest". XML endpoints are not supported by this library.
 
-Ajar ignores the "XML" in "XMLHttpRequest" since most RESTful APIs have a JSON interface, and most JavaScript developers don't love working with XML. That means that XML endpoints are not supported by this library.
+The Ajar API was heavily inspired by the API of [Fetchival](https://github.com/typicode/fetchival), so credit to Typicode for some of this.
 
 ### Usage
 
-Ajar is designed for sending multiple different requests to the same endpoint. The main function is called with an API URL as its sole argument. This returns the methods `.get()`, `.post()`, `.put()`, and `.del()`, all of which can accept a params argument. Those methods in turn expose a `.send()` method, which accepts a callback function to be executed on successful completion of the request.
+Ajar is designed for creating composable AJAX requests around RESTful APIs. The library function `Ajar` accepts a URL and returns a function with HTTP request methods `.get()`, `.post()`, `.put()`, and `.del()`.
+
+These methods return another method, `.send()`, which executes the request. The send method also accepts a callback function to be run on success. That callback receives any data returned from the server as its sole argument.
 
 ```javascript
 var posts = Ajar('/posts');
-var firstPost = Ajar('/posts/1');
+posts.get().send(console.log);
+posts.get({ userID: 1 }).send(console.log);
 
-// GET
-posts
-  .get()
-  .send(console.log);
-posts
-  .get({ userId: 1 })
-  .send(console.log);
+posts.post({
+  title: 'Hello World',
+  body: 'This is my first post!'
+}).send();
 
-// POST
-posts
-  .post({
-    title: 'Hello World',
-    body: 'This is my first post!',
-    userId: 1
-  })
-  .send();
-
-// PUT
-firstPost
-  .put({ title: 'Goodbye World' })
-  .send();
-
-// DELETE
-firstPost
-  .del()
-  .send();
+var firstPost = posts(1); // URL will be /posts/1
+firstPost.put({ title: 'Goodbye World' }).send();
+firstPost.del().send();
 ```
