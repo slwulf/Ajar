@@ -88,9 +88,13 @@ describe('Ajay', function() {
     });
   });
 
-  describe('.put()');
+  describe('.put()', function() {
+    it('makes a PUT request to the URL provided to Ajay()');
+  });
 
-  describe('.del()');
+  describe('.del()', function() {
+    it('makes a DELETE request to the URL provided to Ajay()');
+  });
 
   describe('.send()', function() {
     var test;
