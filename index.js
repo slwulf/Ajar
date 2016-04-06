@@ -84,7 +84,7 @@
     var keys = Object.keys(params);
     return keys.reduce(function(str, key, i) {
       var val = params[key];
-      str += key + '=' + val;
+      str += key + '=' + encodeURIComponent(val);
       if (i < keys.length) str += '&';
       return str;
     }, '?');
