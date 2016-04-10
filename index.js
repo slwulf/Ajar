@@ -16,14 +16,11 @@
    */
 
   function parse(xhr) {
-    var resp;
     if (!xhr.responseType || xhr.responseType === 'text') {
-      resp = xhr.responseText;
-    } else {
-      resp = xhr.response;
+      return JSON.parse(xhr.responseText);
     }
 
-    return JSON.parse(resp);
+    return JSON.parse(xhr.response);
   }
 
   /**

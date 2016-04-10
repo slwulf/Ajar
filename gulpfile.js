@@ -6,6 +6,7 @@ var run = require('run-sequence');
 var argv = require('yargs').argv;
 
 var srcFile = 'index.js';
+var tests = 'spec/*.js';
 
 // output src to dist
 gulp.task('js', function() {
@@ -19,7 +20,7 @@ gulp.task('js', function() {
 
 // test stuff
 gulp.task('test', function() {
-  return gulp.src('spec/*.js')
+  return gulp.src(tests)
     .pipe(mocha({ reporter: argv.reporter || 'nyan' }))
 });
 
@@ -30,7 +31,7 @@ gulp.task('build', function() {
 
 // watch it!
 gulp.task('watch', function() {
-  gulp.watch('spec/*.js', ['build']);
+  gulp.watch(tests, ['build']);
   gulp.watch(srcFile, ['build']);
 });
 
