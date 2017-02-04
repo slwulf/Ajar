@@ -11,20 +11,28 @@
 var expect = require('chai').expect;
 var fs = require('fs');
 var path = require('path');
+var jsdom = require('jsdom');
 
 // set up DOM dependencies
 var fileName = '../dist/ajar.js';
 var distFile = fs.readFileSync(path.join(__dirname, fileName), 'utf-8');
-var jsdom = require('mocha-jsdom')({ src: distFile });
 
 describe('Ajar()', function() {
   var baseURL = 'http://jsonplaceholder.typicode.com';
-  var Ajar, users, posts;
+  var Ajar, users, posts, window, document;
 
-  before(function() {
+  beforeEach(function(done) {
+    document = jsdom.jsdom();
+    window = document.defaultView;
+
+    var script = document.createElement('script');
+    script.textContent = distFile;
+    document.body.appendChild(script);
+
     Ajar = window.Ajar;
     posts = Ajar(baseURL + '/posts');
     users = Ajar(baseURL + '/users');
+    done();
   });
 
   it('throws an error when no URL is provided', function() {
@@ -32,38 +40,31 @@ describe('Ajar()', function() {
     expect(fn).to.throw();
   });
 
-  it('can add to the URL of previously created Ajar instances', function() {
+  it('can add to the URL of previously created Ajar instances', function(done) {
     posts(1).get().send(function(post) {
-      /**
-       * The ID of /posts/1 should be 1
-       */
       expect(post.id).to.equal(1);
+      done();
     });
   });
 
   describe('.get()', function() {
-    it('makes a GET request to the URL passed to Ajar', function() {
+    it('makes a GET request to the URL passed to Ajar', function(done) {
       users.get().send(function(data) {
-        /**
-         * JSONPlaceholder API should have
-         * 10 user records.
-         */
         expect(data).to.have.lengthOf(10);
+        done();
       });
+    });
 
-      // test query params also
+    it('makes a GET request with query params', function(done) {
       users.get({ id: 2 }).send(function(user) {
-        /**
-         * JSONPlaceholder API second user
-         * record has the name "Ervin Howell"
-         */
-        expect(user.name).to.equal('Ervin Howell');
+        expect(user[0].name).to.equal('Ervin Howell');
+        done();
       });
     });
   });
 
   describe('.post()', function() {
-    it('makes a POST request to the URL passed to Ajar', function() {
+    it('makes a POST request to the URL passed to Ajar', function(done) {
       var newPost = posts.post({
         title: 'TEST AJAR',
         body: 'Hello world.',
@@ -71,43 +72,30 @@ describe('Ajar()', function() {
       });
 
       newPost.send(function(post) {
-        /**
-         * JSONPlaceholder API POST endpoints
-         * do not actually create a record, but
-         * respond with the request body
-         */
         expect(post.title).to.equal('TEST AJAR');
+        done();
       });
     });
   });
 
   describe('.put()', function() {
-    it('makes a PUT request to the URL passed to Ajar', function() {
+    it('makes a PUT request to the URL passed to Ajar', function(done) {
       var firstPost = posts(1);
       var changes = firstPost.put({ body: 'Goodbye world.' });
 
       changes.send(function(data) {
-        /**
-         * JSONPlaceholder API PUT endpoints
-         * do not actually update a record, but
-         * respond with the request body
-         */
          expect(data.body).to.equal('Goodbye world.');
+         done();
       });
     });
   });
 
   describe('.del()', function() {
-    it('makes a DELETE request to the URL passed to Ajar', function() {
+    it('makes a DELETE request to the URL passed to Ajar', function(done) {
       var secondPost = posts(2);
       secondPost.del().send(function(data) {
-        /**
-         * JSONPlaceholder API DELETE endpoints
-         * do not actually delete a record, but
-         * respond with an empty object
-         */
-         expect(data).to.be(Object);
          expect(Object.keys(data)).to.have.lengthOf(0);
+         done();
       });
     });
   });

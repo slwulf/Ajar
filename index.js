@@ -56,6 +56,7 @@
             cb(parse(xhr));
           } else {
             handleErrors(xhr);
+            cb(new Error('Server returned ' + xhr.status + ': ' + xhr.statusText));
           }
         }
       };
